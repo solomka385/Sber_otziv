@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/anketa_style.css' %}">
+</head>
+<body>
+<form action="{% url 'anketa' %}" method="post">
+  {% csrf_token %}
+    <!--<p>Ниже url</p>-->
+    <!--<p>{{url}}</p>-->
+    <!--<p>Выше url</p>-->
+
+  {% for anketa in anketa %}
+   <!-- <p>{{anketa.user}}</p>-->
+  <label for="punctuality" class="review-label">{{anketa.number1}}:</label>
+  <select name="punctuality" id="punctuality" class="review-select">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br>
+
+  <label for="cleanliness" class="review-label">{{anketa.number2}}:</label>
+  <select name="cleanliness" id="cleanliness" class="review-select">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br>
+
+  <label for="technical_condition" class="review-label">{{anketa.number3}}:</label>
+  <select name="technical_condition" id="technical_condition" class="review-select">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br>
+
+  <label for="driver_behavior" class="review-label">{{anketa.number4}}:</label>
+  <select name="driver_behavior" id="driver_behavior" class="review-select">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br>
+
+  <label for="payment_system" class="review-label">{{anketa.number5}}:</label>
+  <select name="payment_system" id="payment_system" class="review-select">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select><br>
+
+{%endfor%}
+  <div class="form-error">{{form.non_field_errors}}</div>
+          <label>Напишите дополнительный текст о поездке:</label>
+          {% for f in form %}
+         <p>
+            <label for="{{f.id_for_label}}" class="form-label">{{f.label}}:</label>
+            {{f}}
+          </p>
+          <div class="form-error">{{f.errors}}</div>
+          {% endfor %}
+
+{% for o in opros %}
+    <p>{{o.user}}{{o.text}}</p>
+    {%endfor%}
+
+
+  <input  name="otzov_by" value="{{ otzov_by }}">
+  <!-- остальные поля формы -->
+
+
+
+
+  <input type="submit" value="Отправить" class="review-submit-btn">
+</form>
+</body>
+
+</html>
